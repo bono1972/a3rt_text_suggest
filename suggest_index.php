@@ -1,14 +1,3 @@
-<?php
-
-ini_set( 'display_errors', 1 );
-
-try{
-  require_once (__DIR__ ."/util.php");
-} catch (Exception $e){
-  echo $e->getMessage();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,12 +7,14 @@ try{
 <body>
 <div>
   <!-- 入力フォームを作る（現在のページにPOSTする） -->
-<p><em>回答をもらう：</em></p>
+<p><em>冒頭の句を入力してください。：</em></p>
 <p><input type="text" id="massage" value=""><br></>
 <p><input type="button" id="submit" value="送信"></p>
 <div id="list"></div>
+
 <HR>
-<div id="sentence"></div>
+<div id="answer"></div>
+<p><input type="button" style="display:none;" id="delete" value="クリア"></p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="suggest_ajax.js"></script>
 </body>

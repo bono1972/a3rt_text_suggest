@@ -8,7 +8,7 @@ try{
 } catch (Exception $e){
   echo $e->getMessage();
 }
-$text = $_POST["message"];
+$text = es($_POST["message"]);
 
 // A3RT Text Suggest API
 $url = "https://api.a3rt.recruit-tech.co.jp/text_suggest/v1/predict";
@@ -16,6 +16,8 @@ $url = "https://api.a3rt.recruit-tech.co.jp/text_suggest/v1/predict";
 $param = [
 	"apikey" => A3RT_KEY,
 	"previous_description" => $text,
+	"style" => 1,
+	"separation" => 2
 ];
 $query = http_build_query($param);
 $url = $url ."?".$query;
@@ -35,8 +37,17 @@ $suggest_obj = json_decode($res, false);
 
 //var_dump ($suggest_obj);
 $count = count($suggest_obj->suggestion);
-echo "<select name=\"select\" size={$count}>";
+
+$html[] = "<select name=\"select\" size=\"{$count}\">";
 for ($i=0;$i<$count;$i++){
-	echo "<option>{$suggest_obj->suggestion[$i]}</option>";
+	$html[] = "<option>{$suggest_obj->suggestion[$i]}</option>";
 	}
-echo "</select>";
+$html[] ="</select>";
+$html = implode($html);
+
+$array = [
+	'html' => $html,
+	'text' => $text
+];
+
+echo json_encode($array);
